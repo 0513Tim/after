@@ -1,45 +1,44 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/normalize.css">
 		<style>
 			/* 關鍵 CSS 樣式 */
-			body {
-			  margin: 0;
-			  padding: 0;
-			  font-family: 'Poppins', sans-serif;
-			}
-			
-			img {
-			  max-width: 100%;
-			  height: auto;
-			}
-			
-			.hero-slider .single-slider {
+			body {margin: 0; padding: 0; font-family: 'Poppins', sans-serif; line-height: 1.6; font-display: optional;}
+			.header {width: 100%; background: #fff;}
+			.slider {width: 100%;}
+			img {max-width: 100%; height: auto;}
+			.single-slider {
 			  min-height: 600px;
 			  position: relative;
 			}
-			
-			.hero-slider .text h1 {
-			  min-height: 3em;
+
+			img[src*="section-img.png"] {
+				width: 48px !important;
+				height: 24px !important;
 			}
-			
-			.single-schedule {
-			  min-height: 350px;
-			}
+			.hero-slider .text h1 {min-height: 3em;}
+  			.single-schedule {min-height: 350px;}
 			
 			.section-title h2 {
 			  min-height: 2.5em;
 			}
 			.preloader {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: #fff;
-				z-index: 9999;
+				position: fixed !important;
+				top: 0 !important;
+				left: 0 !important;
+				width: 100% !important;
+				height: 100% !important;
+				background: #fff !important;
+				z-index: 9999 !important;
+				opacity: 1 !important;
+				transition: opacity 0.3s ease !important;
 			}
-			
+			.preloader::after {
+				content: "";
+				display: none !important; /* 完全禁用它 */
+			}
 			.loader {
 				position: absolute;
 				top: 50%;
@@ -55,6 +54,12 @@
 				font-family: 'FontAwesome';
 				font-display: swap;
 				src: url('fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2');
+			}
+			@media only screen and (max-width: 767px) {
+				.schedule-inner {
+					min-height: 1200px;
+					top: -40px;
+				}
 			}
 			.owl-carousel .owl-item img {
 				height: 300px;
@@ -74,12 +79,65 @@
 			.time-sidual {
 				min-height: 150px;
 			}
-			body {margin:0; padding:0; font-family:'Poppins',sans-serif;}
-			.preloader {position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; opacity:1; transition:opacity 0.3s ease;}
-			.loader {position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
-			.header {background:#fff; padding:10px 0;}
-			.slider {background:#f9f9f9; padding:60px 0;}
-			img {max-width:100%; height:auto;}
+			.blog .single-news .news-head {
+				height: 220px;
+				background: #f0f0f0;
+				overflow: hidden;
+			}
+			
+			.clients .single-clients {
+				height: 100px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: #f9f9f9;
+			}
+			/* .preloader::after {
+				content: "";
+				display: block;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: -1;
+			} */
+			.header-inner {
+				padding: 20px 0;
+				background: #fff;
+			}
+			
+			.slider .single-slider {
+				background-size: cover;
+				background-position: center;
+			}
+			
+			.section {
+				padding: 90px 0;
+			}
+			
+			/* 預定義常見容器尺寸 */
+			.container {
+				width: 100%;
+				max-width: 1170px;
+				margin: 0 auto;
+			}
+			
+			/* 確保頁腳元素不會造成偏移 */
+			#footer {
+				background: #222;
+				color: #fff;
+			}
+			.schedule-inner {
+				min-height: 400px;
+				background: #fff;
+				box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.08);
+				position: relative;
+				top: -80px;
+				z-index: 99;
+				padding: 45px 40px;
+				border-radius: 8px;
+			}
 		  </style>
         <!-- Meta Tags -->
 		<meta charset="utf-8">
@@ -95,8 +153,9 @@
 		<!-- Favicon -->
         <link rel="icon" href="img/favicon.png" sizes="32x32">
 		<!-- Google Fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&text=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+		<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></noscript>
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,20 +164,19 @@
 		<link rel="preload" href="fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" type="font/woff2" crossorigin>
 
 		<!-- Bootstrap CSS -->
-		<link rel="preload" href="css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-		<noscript><link rel="stylesheet" href="css/bootstrap.min.css"></noscript>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<!-- Nice Select CSS -->
 		<link rel="stylesheet" href="css/nice-select.css" media="print" onload="this.media='all'">
 		<!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        
 		<!-- icofont CSS -->
-        <link rel="stylesheet" href="css/icofont.css">
+        <link rel="stylesheet" href="css/icofont.css" media="print" onload="this.media='all'">
 		<!-- Slicknav -->
-		<link rel="stylesheet" href="css/slicknav.min.css">
+		<link rel="stylesheet" href="css/slicknav.min.css" media="print" onload="this.media='all'">
 		<!-- Owl Carousel CSS -->
-        <link rel="stylesheet" href="css/owl-carousel.css">
+        <link rel="stylesheet" href="css/owl-carousel.css" media="print" onload="this.media='all'">
 		<!-- Datepicker CSS -->
-		<link rel="stylesheet" href="css/datepicker.css">
+		<link rel="stylesheet" href="css/datepicker.css" media="print" onload="this.media='all'">
 		<!-- Animate CSS -->
         <link rel="stylesheet" href="css/animate.min.css" media="print" onload="this.media='all'">
 		<!-- Magnific Popup CSS -->
@@ -126,20 +184,37 @@
 		
 		<!-- Medipro CSS -->
         <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="css/responsive.css" media="print" onload="this.media='all'">
 		
     </head>
     <body>
 	
 		<!-- Preloader -->
-        <div class="preloader" id="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999;">
-			<div class="loader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
-			  <!-- 簡化預載器內容 -->
+        <div class="preloader" id="preloader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #fff; z-index: 9999; opacity: 1; transition: opacity 0.3s ease; display: flex; justify-content: center; align-items: center;">
+			<div class="loader" style="width: 40px; height: 40px;">
 			  <div style="width: 40px; height: 40px; border: 4px solid #1A76D1; border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite;"></div>
 			</div>
-		  </div>
+		</div>
         <!-- End Preloader -->
+		<script>
+			// 使用 load 事件而不是 DOMContentLoaded
+			window.addEventListener('load', function() {
+			  var preloader = document.getElementById('preloader');
+			  if (preloader) {
+				preloader.style.opacity = '0';
+				preloader.addEventListener('transitionend', function() {
+				  preloader.style.display = 'none';
+				  document.body.classList.add('loaded');
+				});
+			  }
+			});
+		</script>
+		<style>
+		@keyframes spin { 
+			to { transform: rotate(360deg); } 
+		}
+		</style>
 		
 		<!-- Get Pro Button -->
 		<ul class="pro-features">
