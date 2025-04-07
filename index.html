@@ -74,6 +74,12 @@
 			.time-sidual {
 				min-height: 150px;
 			}
+			body {margin:0; padding:0; font-family:'Poppins',sans-serif;}
+			.preloader {position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; opacity:1; transition:opacity 0.3s ease;}
+			.loader {position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+			.header {background:#fff; padding:10px 0;}
+			.slider {background:#f9f9f9; padding:60px 0;}
+			img {max-width:100%; height:auto;}
 		  </style>
         <!-- Meta Tags -->
 		<meta charset="utf-8">
@@ -99,7 +105,8 @@
 		<link rel="preload" href="fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" type="font/woff2" crossorigin>
 
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="preload" href="css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+		<noscript><link rel="stylesheet" href="css/bootstrap.min.css"></noscript>
 		<!-- Nice Select CSS -->
 		<link rel="stylesheet" href="css/nice-select.css" media="print" onload="this.media='all'">
 		<!-- Font Awesome CSS -->
@@ -126,18 +133,12 @@
     <body>
 	
 		<!-- Preloader -->
-        <div class="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;">
-			<div class="loader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-				<div class="loader-outter"></div>
-				<div class="loader-inner"></div>
-				<div class="indicator"> 
-					<svg width="16px" height="12px">
-						<polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
-						<polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
-					</svg>
-				</div>
+        <div class="preloader" id="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999;">
+			<div class="loader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px;">
+			  <!-- 簡化預載器內容 -->
+			  <div style="width: 40px; height: 40px; border: 4px solid #1A76D1; border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite;"></div>
 			</div>
-		</div>
+		  </div>
         <!-- End Preloader -->
 		
 		<!-- Get Pro Button -->
