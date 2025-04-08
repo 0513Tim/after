@@ -10,8 +10,11 @@
 			.slider {width: 100%;}
 			img {max-width: 100%; height: auto;}
 			.single-slider {
-			  min-height: 600px;
-			  position: relative;
+				background-size: cover;
+				background-position: center;
+				min-height: 600px;
+				position: relative; /* 確保內部元素的定位基於此容器 */
+				z-index: 0; /* 確保背景不會覆蓋按鈕 *//
 			}
 			
 			.hero-slider .text h1 {min-height: 3em;}
@@ -82,16 +85,6 @@
 				justify-content: center;
 				background: #f9f9f9;
 			}
-			/* .preloader::after {
-				content: "";
-				display: block;
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: -1;
-			} */
 			.header-inner {
 				padding: 20px 0;
 				background: #fff;
@@ -108,9 +101,7 @@
 			
 			/* 預定義常見容器尺寸 */
 			.container {
-				width: 100%;
-				max-width: 1170px;
-				margin: 0 auto;
+				overflow: visible; /* 確保內容不會被裁剪 */
 			}
 			
 			/* 確保頁腳元素不會造成偏移 */
@@ -122,11 +113,15 @@
 				min-height: 400px;
 				background: #fff;
 				box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.08);
-				position: relative;
-				top: -80px;
-				z-index: 99;
+				position: relative; /* 確保它不會覆蓋其他元素 */
+				top: 0; /* 移除負的 top 值，避免它向上移動 */
+				z-index: 1; /* 降低 z-index，確保按鈕在其上方 */
 				padding: 45px 40px;
 				border-radius: 8px;
+			}
+			.button a {
+				position: relative; /* 確保 z-index 生效 */
+  				z-index: 10; /* 提高 z-index，確保按鈕在最上層 */
 			}
 		  </style>
         <!-- Meta Tags -->
@@ -310,7 +305,7 @@
 		<section class="slider">
 			<div class="hero-slider">
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider2.jpg')">
+				<div class="single-slider" style="background-image:url('img/slider2.jpg')" alt="Slider Image" width="1920" height="1080" loading="lazy">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
@@ -328,7 +323,7 @@
 				</div>
 				<!-- End Single Slider -->
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider.jpg')">
+				<div class="single-slider" style="background-image:url('img/slider.jpg')" alt="Slider Image" width="1920" height="1080" loading="lazy">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
@@ -346,7 +341,7 @@
 				</div>
 				<!-- Start End Slider -->
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider3.jpg')">
+				<div class="single-slider" style="background-image:url('img/slider3.jpg')" alt="Slider Image" width="1920" height="1080" loading="lazy">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
