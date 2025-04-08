@@ -10,12 +10,20 @@
 			.slider {width: 100%;}
 			img {max-width: 100%; height: auto;}
 			.single-slider {
-				background-size: cover;
-				background-position: center;
-				min-height: 600px; /* 固定高度，避免佈局偏移 */
-				width: 100%; /* 確保寬度一致 */
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				transition: opacity 0.5s ease-in-out;
+				z-index: 1;
 			}
-			
+			.hero-slider {
+				position: relative;
+				overflow: hidden;
+				min-height: 600px; /* 確保容器有固定高度 */
+			}
 			.hero-slider .text h1 {min-height: 3em;}
 			.hero-slider .text p {
 				min-height: 1.5em; /* 預留段落空間 */
@@ -39,6 +47,11 @@
 			.preloader::after {
 				content: "";
 				display: none !important; /* 完全禁用它 */
+			}
+			.single-slider.active {
+				opacity: 1;
+				position: relative;
+				z-index: 2;
 			}
 			.loader {
 				position: absolute;
@@ -115,16 +128,69 @@
 				min-height: 400px;
 				background: #fff;
 				box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.08);
-				position: relative; /* 確保它不會覆蓋其他元素 */
-				top: 0; /* 移除負的 top 值，避免它向上移動 */
-				z-index: 1; /* 降低 z-index，確保按鈕在其上方 */
+				position: relative;
+				top: 0;
+				margin-top: -80px; /* 使用 margin-top 替代 top 負值 */
+				z-index: 1;
 				padding: 45px 40px;
 				border-radius: 8px;
+				contain: layout paint; /* 減少繪製範圍 */
 			}
 			.button a {
 				display: inline-block;
 				min-width: 120px; /* 預留按鈕寬度 */
 				min-height: 40px; /* 預留按鈕高度 */
+			}
+			.slider::before {
+				content: '';
+				position: absolute;
+				top: -9999px;
+				left: -9999px;
+				width: 1px;
+				height: 1px;
+				background-image: url('img/slider.jpg'), url('img/slider2.jpg'), url('img/slider3.jpg');
+				opacity: 0.01;
+			}
+			.icofont, .fa {
+				display: inline-block;
+				min-width: 1em;
+				min-height: 1em;
+				position: relative;
+			}
+			
+			/* 確保圖標容器有固定尺寸 */
+			.signle-icon, .icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 60px;
+				min-width: 60px;
+			}
+			input, textarea, select, .nice-select {
+				box-sizing: border-box;
+				height: auto;
+				min-height: 45px;
+			}
+
+				.nice-select .list {
+				box-sizing: border-box;
+				width: 100%; /* 確保下拉列表不會超出容器 */
+			}
+			/* 客戶端 logo 區塊優化 */
+			.clients .single-clients {
+				height: 100px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: #f9f9f9;
+			}
+
+			.clients .single-clients img {
+				max-width: 80%;
+				max-height: 60px;
+				width: auto;
+				height: auto;
+				object-fit: contain;
 			}
 		  </style>
         <!-- Meta Tags -->
@@ -186,6 +252,25 @@
 		</div>
         <!-- End Preloader -->
 		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+			const sliders = document.querySelectorAll('.single-slider');
+			if (sliders.length > 0) {
+				// 初始化第一個 slider
+				sliders[0].classList.add('active');
+				
+				let currentIndex = 0;
+				setInterval(function() {
+				// 隱藏當前 slider
+				sliders[currentIndex].classList.remove('active');
+				
+				// 更新索引
+				currentIndex = (currentIndex + 1) % sliders.length;
+				
+				// 顯示新的 slider
+				sliders[currentIndex].classList.add('active');
+				}, 5000); // 每 5 秒切換一次
+			}
+			});
 			// 使用 load 事件而不是 DOMContentLoaded
 			window.addEventListener('load', function() {
 			  var preloader = document.getElementById('preloader');
