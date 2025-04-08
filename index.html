@@ -12,12 +12,14 @@
 			.single-slider {
 				background-size: cover;
 				background-position: center;
-				min-height: 600px;
-				position: relative; /* 確保內部元素的定位基於此容器 */
-				z-index: 0; /* 確保背景不會覆蓋按鈕 *//
+				min-height: 600px; /* 固定高度，避免佈局偏移 */
+				width: 100%; /* 確保寬度一致 */
 			}
 			
 			.hero-slider .text h1 {min-height: 3em;}
+			.hero-slider .text p {
+				min-height: 1.5em; /* 預留段落空間 */
+			}
   			.single-schedule {min-height: 350px;}
 			
 			.section-title h2 {
@@ -90,7 +92,7 @@
 				background: #fff;
 			}
 			
-			.slider .single-slider {
+			.slider {
 				background-size: cover;
 				background-position: center;
 			}
@@ -120,8 +122,9 @@
 				border-radius: 8px;
 			}
 			.button a {
-				position: relative; /* 確保 z-index 生效 */
-  				z-index: 10; /* 提高 z-index，確保按鈕在最上層 */
+				display: inline-block;
+				min-width: 120px; /* 預留按鈕寬度 */
+				min-height: 40px; /* 預留按鈕高度 */
 			}
 		  </style>
         <!-- Meta Tags -->
@@ -305,7 +308,7 @@
 		<section class="slider">
 			<div class="hero-slider">
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider2.jpg')" alt="Slider Image" width="100%" height="100%" loading="lazy">
+				<div class="single-slider" style="background-image:url('img/slider2.jpg'); background-size: cover; background-position: center;">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
@@ -323,7 +326,7 @@
 				</div>
 				<!-- End Single Slider -->
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider.jpg')" alt="Slider Image" width="100%" height="100%" loading="lazy">
+				<div class="single-slider" style="background-image:url('img/slider.jpg'); background-size: cover; background-position: center;">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
@@ -341,7 +344,7 @@
 				</div>
 				<!-- Start End Slider -->
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider3.jpg')" alt="Slider Image" width="100%" height="100%" loading="lazy">
+				<div class="single-slider" style="background-image:url('img/slider3.jpg'); background-size: cover; background-position: center;">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
