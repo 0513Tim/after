@@ -27,44 +27,114 @@
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<!-- Nice Select CSS -->
-		<link rel="stylesheet" href="css/nice-select.css">
+		<link rel="stylesheet" href="css/nice-select.css" media="print" onload="this.media='all'">
 		<!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" media="print" onload="this.media='all'">
 		<!-- icofont CSS -->
-        <link rel="stylesheet" href="css/icofont.css">
+        <link rel="stylesheet" href="css/icofont.css" media="print" onload="this.media='all'">
 		<!-- Slicknav -->
-		<link rel="stylesheet" href="css/slicknav.min.css">
+		<link rel="stylesheet" href="css/slicknav.min.css" media="print" onload="this.media='all'">
 		<!-- Owl Carousel CSS -->
-        <link rel="stylesheet" href="css/owl-carousel.css">
+        <link rel="stylesheet" href="css/owl-carousel.css" media="print" onload="this.media='all'">
 		<!-- Datepicker CSS -->
-		<link rel="stylesheet" href="css/datepicker.css">
+		<link rel="stylesheet" href="css/datepicker.css" media="print" onload="this.media='all'">
 		<!-- Animate CSS -->
-        <link rel="stylesheet" href="css/animate.min.css">
+        <link rel="stylesheet" href="css/animate.min.css" media="print" onload="this.media='all'">
 		<!-- Magnific Popup CSS -->
-        <link rel="stylesheet" href="css/magnific-popup.css">
+        <link rel="stylesheet" href="css/magnific-popup.css" media="print" onload="this.media='all'">
 		
 		<!-- Medipro CSS -->
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="css/responsive.css">
-		
+        <link rel="stylesheet" href="css/responsive.css" media="print" onload="this.media='all'">
+		<!-- 在 head 標籤中添加 -->
+		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" as="style">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+		<style>
+		/* 設置字體回退策略 */
+		body {
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji";
+		}
+
+		.fonts-loaded body {
+		font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		}
+
+		/* 為標題預留空間 */
+		h1, h2, h3, h4, h5, h6 {
+		min-height: 1.2em;
+		}
+
+		/* 為段落預留空間 */
+		p {
+		min-height: 1em;
+		}
+		.single-slider {
+		background-size: cover;
+		background-position: center;
+		min-height: 600px; /* 固定高度，避免佈局偏移 */
+		position: relative;
+		}
+
+		.hero-slider {
+		position: relative;
+		overflow: hidden;
+		min-height: 600px; /* 確保容器也有固定高度 */
+		}
+		</style>
+
+		<script>
+		// 字體加載檢測
+		if ("fonts" in document) {
+		Promise.all([
+			document.fonts.load('400 1em Poppins'),
+			document.fonts.load('500 1em Poppins'),
+			document.fonts.load('600 1em Poppins')
+		]).then(function() {
+			document.documentElement.classList.add('fonts-loaded');
+		});
+		}
+		</script>
     </head>
     <body>
 	
-		<!-- Preloader -->
-        <div class="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;">
-			<div class="loader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-				<div class="loader-outter"></div>
-				<div class="loader-inner"></div>
-				<div class="indicator"> 
-					<svg width="16px" height="12px">
-						<polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
-						<polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
-					</svg>
-				</div>
+		<!-- 修改 preloader -->
+		<div class="preloader" id="preloader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; opacity: 1; transition: opacity 0.3s ease; display: flex; justify-content: center; align-items: center;">
+			<div class="loader" style="width: 40px; height: 40px;">
+			<div style="width: 40px; height: 40px; border: 4px solid #1A76D1; border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite;"></div>
 			</div>
 		</div>
-        <!-- End Preloader -->
+
+		<style>
+		/* 完全禁用 preloader 的 ::after 元素 */
+		.preloader::after {
+		content: none !important;
+		display: none !important;
+		}
+
+		@keyframes spin { 
+			to { transform: rotate(360deg); } 
+		}
+		</style>
+
+		<script>
+		// 優化 preloader 的移除方式
+		window.addEventListener('load', function() {
+		var preloader = document.getElementById('preloader');
+		if (preloader) {
+			requestAnimationFrame(function() {
+			preloader.style.opacity = '0';
+			preloader.addEventListener('transitionend', function() {
+				preloader.style.display = 'none';
+				// 完全移除元素，避免它佔用空間
+				preloader.parentNode.removeChild(preloader);
+				document.body.classList.add('loaded');
+			});
+			});
+		}
+		});
+		</script>
 		
 		<!-- Get Pro Button -->
 		<ul class="pro-features">
@@ -297,7 +367,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Are Always Ready to Help You & Your Family</h2>
-							<img src="img/section-img.png" alt="#" width="48px" height="24px">
+							<img src="img/section-img.png" alt="#" width="48" height="24">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
@@ -401,7 +471,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Offer Different Services To Improve Your Health</h2>
-							<img src="img/section-img.png" alt="#" width="48px" height="24px">
+							<img src="img/section-img.png" alt="#" width="48" height="24">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
@@ -481,7 +551,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Maintain Cleanliness Rules Inside Our Hospital</h2>
-							<img src="img/section-img.png" alt="#" width="48px" height="24px">
+							<img src="img/section-img.png" alt="#" width="48" height="24">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
@@ -492,35 +562,35 @@
 					<div class="col-lg-12 col-12">
 						<div class="owl-carousel portfolio-slider">
 							<div class="single-pf">
-								<img src="img/pf1.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf1.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
-								<img src="img/pf2.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf2.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
-								<img src="img/pf3.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf3.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
-								<img src="img/pf4.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf4.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
-								<img src="img/pf1.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf1.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
-								<img src="img/pf2.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf2.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
-								<img src="img/pf3.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf3.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 							<div class="single-pf">
-								<img src="img/pf4.jpg" alt="#" width="100%" height="100%">
+								<img src="img/pf4.jpg" alt="#" width="400" height="300">
 								<a href="portfolio-details.html" class="btn">View Details</a>
 							</div>
 						</div>
@@ -537,7 +607,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Offer Different Services To Improve Your Health</h2>
-							<img src="img/section-img.png" alt="#" width="48px" height="24px">
+							<img src="img/section-img.png" alt="#" width="48" height="24">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
@@ -609,7 +679,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Provide You The Best Treatment In Resonable Price</h2>
-							<img src="img/section-img.png" alt="#" width="48px" height="24px">
+							<img src="img/section-img.png" alt="#" width="48" height="24">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
@@ -713,7 +783,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>Keep up with Our Most Recent Medical News.</h2>
-							<img src="img/section-img.png" alt="#" width="48px" height="24px">
+							<img src="img/section-img.png" alt="#" width="48" height="24">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
@@ -723,7 +793,7 @@
 						<!-- Single Blog -->
 						<div class="single-news">
 							<div class="news-head">
-								<img src="img/blog1.jpg" alt="#" width="350" height="">
+								<img src="img/blog1.jpg" alt="#" width="350" height="220">
 							</div>
 							<div class="news-body">
 								<div class="news-content">
@@ -739,7 +809,7 @@
 						<!-- Single Blog -->
 						<div class="single-news">
 							<div class="news-head">
-								<img src="img/blog2.jpg" alt="#" width="100%" height="100%">
+								<img src="img/blog2.jpg" alt="#" width="350" height="220">
 							</div>
 							<div class="news-body">
 								<div class="news-content">
@@ -755,7 +825,7 @@
 						<!-- Single Blog -->
 						<div class="single-news">
 							<div class="news-head">
-								<img src="img/blog3.jpg" alt="#" width="100%" height="100%">
+								<img src="img/blog3.jpg" alt="#" width="350" height="220">
 							</div>
 							<div class="news-body">
 								<div class="news-content">
@@ -779,31 +849,31 @@
 					<div class="col-lg-12 col-md-12 col-12">
 						<div class="owl-carousel clients-slider">
 							<div class="single-clients">
-								<img src="img/client1.png" alt="#" width="100%" height="100%">
+								<img src="img/client1.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client2.png" alt="#" width="100%" height="100%">
+								<img src="img/client2.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client3.png" alt="#" width="100%" height="100%">
+								<img src="img/client3.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client4.png" alt="#" width="100%" height="100%">
+								<img src="img/client4.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client5.png" alt="#" width="100%" height="100%">
+								<img src="img/client5.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client1.png" alt="#" width="100%" height="100%">
+								<img src="img/client1.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client2.png" alt="#" width="100%" height="100%">
+								<img src="img/client2.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client3.png" alt="#" width="100%" height="100%">
+								<img src="img/client3.png" alt="#" width="180" height="90">
 							</div>
 							<div class="single-clients">
-								<img src="img/client4.png" alt="#" width="100%" height="100%">
+								<img src="img/client4.png" alt="#" width="180" height="90">
 							</div>
 						</div>
 					</div>
@@ -819,7 +889,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Are Always Ready to Help You. Book An Appointment</h2>
-							<img src="img/section-img.png" alt="#" width="48px" height="24px">
+							<img src="img/section-img.png" alt="#" width="48" height="24">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>
@@ -895,7 +965,7 @@
 					</div>
 					<div class="col-lg-6 col-md-12 ">
 						<div class="appointment-image">
-							<img src="img/contact-img.png" alt="#" width="100%" height="100%">
+							<img src="img/contact-img.png" alt="#" width="450" height="350">
 						</div>
 					</div>
 				</div>
@@ -1020,44 +1090,44 @@
 		<!--/ End Footer Area -->
 		
 		<!-- jquery Min JS -->
-        <script src="js/jquery.min.js"></script>
+        <script defer src="js/jquery.min.js"></script>
 		<!-- jquery Migrate JS -->
-		<script src="js/jquery-migrate-3.0.0.js"></script>
+		<script defer src="js/jquery-migrate-3.0.0.js"></script>
 		<!-- jquery Ui JS -->
-		<script src="js/jquery-ui.min.js"></script>
+		<script defer src="js/jquery-ui.min.js"></script>
 		<!-- Easing JS -->
-        <script src="js/easing.js"></script>
+        <script defer src="js/easing.js"></script>
 		<!-- Color JS -->
-		<script src="js/colors.js"></script>
+		<script defer src="js/colors.js"></script>
 		<!-- Popper JS -->
-		<script src="js/popper.min.js"></script>
+		<script defer src="js/popper.min.js"></script>
 		<!-- Bootstrap Datepicker JS -->
-		<script src="js/bootstrap-datepicker.js"></script>
+		<script defer src="js/bootstrap-datepicker.js"></script>
 		<!-- Jquery Nav JS -->
-        <script src="js/jquery.nav.js"></script>
+        <script defer src="js/jquery.nav.js"></script>
 		<!-- Slicknav JS -->
-		<script src="js/slicknav.min.js"></script>
+		<script defer src="js/slicknav.min.js"></script>
 		<!-- ScrollUp JS -->
-        <script src="js/jquery.scrollUp.min.js"></script>
+        <script defer src="js/jquery.scrollUp.min.js"></script>
 		<!-- Niceselect JS -->
-		<script src="js/niceselect.js"></script>
+		<script defer src="js/niceselect.js"></script>
 		<!-- Tilt Jquery JS -->
-		<script src="js/tilt.jquery.min.js"></script>
+		<script defer src="js/tilt.jquery.min.js"></script>
 		<!-- Owl Carousel JS -->
-        <script src="js/owl-carousel.js"></script>
+        <script defer src="js/owl-carousel.js"></script>
 		<!-- counterup JS -->
-		<script src="js/jquery.counterup.min.js"></script>
+		<script defer src="js/jquery.counterup.min.js"></script>
 		<!-- Steller JS -->
-		<script src="js/steller.js"></script>
+		<script defer src="js/steller.js"></script>
 		<!-- Wow JS -->
-		<script src="js/wow.min.js"></script>
+		<script defer src="js/wow.min.js"></script>
 		<!-- Magnific Popup JS -->
-		<script src="js/jquery.magnific-popup.min.js"></script>
+		<script defer src="js/jquery.magnific-popup.min.js"></script>
 		<!-- Counter Up CDN JS -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 		<!-- Bootstrap JS -->
-		<script src="js/bootstrap.min.js"></script>
+		<script defer src="js/bootstrap.min.js"></script>
 		<!-- Main JS -->
-		<script src="js/main.js"></script>
+		<script defer src="js/main.js"></script>
     </body>
 </html>
