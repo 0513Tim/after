@@ -115,6 +115,27 @@
 		from { opacity: 0.6; }
 		to { opacity: 1; }
 		}
+		/* 在 head 中更新/添加 CSS 優先順序代碼 */
+		/* 更多關鍵路徑 CSS */
+		.slider {
+		min-height: 500px; /* 提供最小高度避免 CLS */
+		position: relative;
+		overflow: hidden;
+		background-color: #f0f7ff;
+		}
+
+		/* 加速首屏內容渲染 */
+		.container, .row, h1, p, .button {
+		contain: layout paint;
+		content-visibility: auto;
+		}
+
+		/* 改進 LCP 元素的顯示方式 */
+		.slider-bg {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+		}
 		</style>
 		
 
